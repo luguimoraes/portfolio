@@ -1,0 +1,209 @@
+/*
+ * Design tokens — fonte única de cores, tipos, espaços, raios e movimento.
+ *
+ * Regra: componentes usam só as classes geradas a partir daqui
+ * (bg-surface, text-ink, text-title-1, py-section, animate-fade-up...).
+ * Cor solta (#hex, rgb()) ou valor arbitrário (w-[37px]) é barrado por
+ * `npm run design:check`.
+ *
+ * Identidade: "painel de CS" — azul como cor de ação e estrutura, laranja
+ * como energia e destaque de resultado. Rótulos em mono, como um KPI.
+ *
+ * Tema: segue o sistema; o botão do topo grava a escolha em
+ * <html data-theme="light|dark">.
+ */
+
+/* ---------- Tema claro (padrão) ---------- */
+:root {
+  --c-bg: #f6f7fb;
+  --c-surface: #ffffff;
+  --c-surface-soft: #edf1fa;
+  --c-ink: #0f1a33;
+  --c-ink-muted: #4a5672;
+  --c-line: #d9e0ee;
+  --c-primary: #1f4fd6;
+  --c-primary-ink: #ffffff;
+  --c-primary-soft: #e1e9ff;
+  --c-accent: #c2410c; /* laranja para texto: contraste AA */
+  --c-accent-vivid: #ff7a1a; /* laranja vivo: preenchimento e decoração */
+  --c-accent-soft: #fff0e4;
+  --c-on-accent: #1a0e05; /* texto sobre o laranja vivo, nos dois temas */
+  --c-ring: #1f4fd6;
+  --c-shadow: rgb(15 26 51 / 0.12);
+  --blob-opacity: 0.45;
+  color-scheme: light;
+}
+
+/* ---------- Tema escuro ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-bg: #070d1c;
+    --c-surface: #0e1730;
+    --c-surface-soft: #0b142a;
+    --c-ink: #e8eeff;
+    --c-ink-muted: #9eabc9;
+    --c-line: #1f2b4a;
+    --c-primary: #7ea3ff;
+    --c-primary-ink: #061233;
+    --c-primary-soft: #15234a;
+    --c-accent: #ff9a4d;
+    --c-accent-soft: #2a1a0f;
+    --c-ring: #7ea3ff;
+    --c-shadow: rgb(0 0 0 / 0.45);
+    --blob-opacity: 0.28;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --c-bg: #070d1c;
+  --c-surface: #0e1730;
+  --c-surface-soft: #0b142a;
+  --c-ink: #e8eeff;
+  --c-ink-muted: #9eabc9;
+  --c-line: #1f2b4a;
+  --c-primary: #7ea3ff;
+  --c-primary-ink: #061233;
+  --c-primary-soft: #15234a;
+  --c-accent: #ff9a4d;
+  --c-accent-soft: #2a1a0f;
+  --c-ring: #7ea3ff;
+  --c-shadow: rgb(0 0 0 / 0.45);
+  --blob-opacity: 0.28;
+  color-scheme: dark;
+}
+
+/* ---------- Mapeamento para o Tailwind ---------- */
+@theme inline {
+  /* Remove a paleta padrão do Tailwind: só existem as cores abaixo. */
+  --color-*: initial;
+
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-soft: var(--c-surface-soft);
+  --color-ink: var(--c-ink);
+  --color-ink-muted: var(--c-ink-muted);
+  --color-line: var(--c-line);
+  --color-primary: var(--c-primary);
+  --color-primary-ink: var(--c-primary-ink);
+  --color-primary-soft: var(--c-primary-soft);
+  --color-accent: var(--c-accent);
+  --color-accent-vivid: var(--c-accent-vivid);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-on-accent: var(--c-on-accent);
+  --color-ring: var(--c-ring);
+  --color-transparent: transparent;
+
+  /* Tipografia */
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --text-display: 4rem;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-display-compact: 2.625rem;
+  --text-display-compact--line-height: 1.06;
+  --text-display-compact--letter-spacing: -0.03em;
+  --text-kpi: 2.75rem;
+  --text-kpi--line-height: 1;
+  --text-kpi--letter-spacing: -0.03em;
+  --text-title-1: 2.25rem;
+  --text-title-1--line-height: 1.12;
+  --text-title-1--letter-spacing: -0.025em;
+  --text-title-2: 1.5rem;
+  --text-title-2--line-height: 1.25;
+  --text-title-2--letter-spacing: -0.01em;
+  --text-title-3: 1.125rem;
+  --text-title-3--line-height: 1.4;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1rem;
+  --text-meta--letter-spacing: 0.1em;
+
+  /* Espaços de estrutura (o micro-layout usa a escala padrão: p-4, gap-6...) */
+  --spacing-page-x: 1.25rem;
+  --spacing-page-x-lg: 2.5rem;
+  --spacing-section: 4.5rem;
+  --spacing-section-lg: 7.5rem;
+  --container-site: 72rem;
+  --container-reading: 44rem;
+
+  /* Raios: controle, cartão e pílula */
+  --radius-control: 0.75rem;
+  --radius-card: 1.5rem;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-card: 0 18px 40px -18px var(--c-shadow);
+  --shadow-sticker: 0 6px 14px -4px var(--c-shadow);
+
+  /* ---------- Movimento ---------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --default-transition-duration: 250ms;
+
+  --animate-fade-up: fade-up 0.8s var(--ease-out-soft) both;
+  --animate-blob-a: blob-a 16s ease-in-out infinite alternate;
+  --animate-blob-b: blob-b 20s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 40s linear infinite;
+  --animate-bob: bob 5s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 1.8s ease-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes blob-a {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(12%, 18%) scale(1.15);
+    }
+  }
+  @keyframes blob-b {
+    from {
+      transform: translate(0, 0) scale(1.1);
+    }
+    to {
+      transform: translate(-16%, -10%) scale(0.9);
+    }
+  }
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--tilt, 0deg));
+    }
+    50% {
+      transform: translateY(-10px) rotate(calc(var(--tilt, 0deg) * -1));
+    }
+  }
+  @keyframes ping-soft {
+    from {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    to {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+}
+
+/* Ritmo do movimento */
+:root {
+  --stagger: 90ms;
+  --reveal-distance: 28px;
+  --reveal-duration: 0.8s;
+  --stack-top: 6.5rem;
+  --stack-step: 1.25rem;
+}

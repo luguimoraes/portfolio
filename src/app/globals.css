@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@import "../design/tokens.css";
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--c-accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-ring);
+  outline-offset: 3px;
+}
+
+/* ================= Movimento =================
+ * Todo estado "escondido antes de animar" fica dentro de
+ * prefers-reduced-motion: no-preference. Quem pede menos movimento
+ * vê o conteúdo parado e completo.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada em sequência: filhos diretos sobem um após o outro. */
+  .stagger > * {
+    animation: var(--animate-fade-up);
+  }
+  .stagger > *:nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+  .stagger > *:nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+  .stagger > *:nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+  .stagger > *:nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+  .stagger > *:nth-child(6) { animation-delay: calc(var(--stagger) * 5); }
+
+  /* Revelar ao rolar: o componente <Reveal> marca data-visible. */
+  .reveal,
+  .reveal-group > * {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+    transition:
+      opacity var(--reveal-duration) var(--ease-out-soft),
+      transform var(--reveal-duration) var(--ease-out-soft);
+  }
+  .reveal[data-visible="true"],
+  .reveal-group[data-visible="true"] > * {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-group > *:nth-child(2) { transition-delay: calc(var(--stagger) * 1); }
+  .reveal-group > *:nth-child(3) { transition-delay: calc(var(--stagger) * 2); }
+  .reveal-group > *:nth-child(4) { transition-delay: calc(var(--stagger) * 3); }
+  .reveal-group > *:nth-child(5) { transition-delay: calc(var(--stagger) * 4); }
+  .reveal-group > *:nth-child(6) { transition-delay: calc(var(--stagger) * 5); }
+
+  /* Barra de progresso de leitura (onde o navegador suporta). */
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* Pilha de cases: o componente atualiza --shrink (0 a 1) ao rolar. */
+  .stack-card {
+    transform: scale(calc(1 - var(--shrink, 0) * 0.06));
+    filter: brightness(calc(1 - var(--shrink, 0) * 0.2));
+    transform-origin: top center;
+    will-change: transform;
+  }
+
+  /* Texto girando em volta da foto e adesivos flutuando. */
+  .orbit-text {
+    animation: var(--animate-spin-slow);
+  }
+  .sticker {
+    animation: var(--animate-bob);
+  }
+  .sticker:nth-of-type(2n) { animation-duration: 6s; animation-delay: -1.5s; }
+  .sticker:nth-of-type(3n) { animation-duration: 7s; animation-delay: -3s; }
+  .sticker:nth-of-type(5n) { animation-duration: 5.5s; animation-delay: -2s; }
+}
+
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Pilha: cada cartão gruda um pouco abaixo do anterior. */
+.stack-card {
+  position: sticky;
+  top: calc(var(--stack-top) + var(--i, 0) * var(--stack-step));
+}
+.stack > :nth-child(2) { --i: 1; }
+.stack > :nth-child(3) { --i: 2; }
+.stack > :nth-child(4) { --i: 3; }
+
+/* Adesivos: inclinação própria de cada um, sombra de recorte. */
+.sticker {
+  position: absolute;
+  filter: drop-shadow(var(--shadow-sticker));
+  transform: rotate(var(--tilt, 0deg));
+  transition: scale 0.3s var(--ease-out-soft);
+}
+.sticker:hover {
+  scale: 1.15;
+}
+.tilt-l { --tilt: -10deg; }
+.tilt-r { --tilt: 9deg; }
+.tilt-s { --tilt: -4deg; }
+
+/* Fundo ambiente: formas desfocadas em azul e laranja. */
+.blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: var(--blob-opacity);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blob-a { animation: var(--animate-blob-a); }
+  .blob-b { animation: var(--animate-blob-b); }
+}
+
+/* Linha do tempo em zigue-zague: linha tracejada no meio (desktop). */
+.timeline-line {
+  background-image: linear-gradient(var(--c-line) 50%, transparent 50%);
+  background-size: 2px 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

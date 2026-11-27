@@ -2,7 +2,24 @@
  * Ilustrações dos cases. Cenas simples montadas com os tokens, para mostrar
  * a ideia de cada projeto sem expor telas ou dados de clientes.
  */
-import { BotIcon, ChartIcon, DatabaseIcon, SparkIcon, TargetIcon } from "./icons";
+import {
+  BotIcon,
+  ChartIcon,
+  ChatIcon,
+  DatabaseIcon,
+  DumbbellIcon,
+  GaugeIcon,
+  HeartIcon,
+  HouseIcon,
+  MailIcon,
+  MegaphoneIcon,
+  PhoneIcon,
+  SparkIcon,
+  StethoscopeIcon,
+  TargetIcon,
+  TasksIcon,
+  TrophyIcon,
+} from "./icons";
 
 const ink = "stroke-ink";
 
@@ -81,6 +98,107 @@ export function CostArt() {
   );
 }
 
+/** Como fiz este site: janela do navegador com tokens e código. */
+export function SiteArt() {
+  return (
+    <div className="relative flex h-full min-h-72 items-center justify-center bg-primary-soft p-8">
+      <svg viewBox="0 0 320 220" className="w-full max-w-md" fill="none" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {/* janela */}
+        <rect x="16" y="20" width="288" height="180" rx="16" className={`fill-surface ${ink}`} />
+        <path d="M16 50h288" className={ink} />
+        <circle cx="36" cy="35" r="5" className={`fill-accent-vivid ${ink}`} strokeWidth={2} />
+        <circle cx="54" cy="35" r="5" className={`fill-primary ${ink}`} strokeWidth={2} />
+        <circle cx="72" cy="35" r="5" className={`fill-surface ${ink}`} strokeWidth={2} />
+        {/* paleta de tokens */}
+        <rect x="36" y="68" width="34" height="34" rx="8" className={`fill-primary ${ink}`} />
+        <rect x="78" y="68" width="34" height="34" rx="8" className={`fill-accent-vivid ${ink}`} />
+        <rect x="120" y="68" width="34" height="34" rx="8" className={`fill-primary-soft ${ink}`} />
+        <path d="M36 122h118M36 140h90M36 158h104" className="stroke-line" strokeWidth={6} />
+        {/* código */}
+        <rect x="176" y="68" width="108" height="112" rx="12" className={`fill-primary ${ink}`} />
+        <path d="M206 108l-14 16 14 16M254 108l14 16-14 16M238 100l-16 48" className="stroke-primary-ink" strokeWidth={4} />
+        <rect x="36" y="172" width="64" height="16" rx="8" className={`fill-accent-vivid ${ink}`} strokeWidth={2} />
+      </svg>
+      <SparkIcon className="sticker tilt-r top-5 right-8 size-12" />
+      <GaugeIcon className="sticker tilt-l bottom-5 left-6 size-12" />
+    </div>
+  );
+}
+
+/** Wellhub: contas enterprise segmentadas por tier, com saúde, bem-estar e o troféu de prata. */
+export function WellhubArt() {
+  return (
+    <div className="relative flex h-full min-h-72 items-center justify-center bg-accent-soft p-8">
+      <svg viewBox="0 0 320 220" className="w-full max-w-md" fill="none" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {/* pirâmide de segmentação por tier */}
+        <path d="M160 26 228 120H92Z" className={`fill-primary ${ink}`} />
+        <path d="M92 120h136l30 42H62Z" className={`fill-primary-soft ${ink}`} />
+        <path d="M62 162h196l26 36H36Z" className={`fill-surface ${ink}`} />
+        <text x="160" y="92" textAnchor="middle" fontSize="15" fontWeight="700" className="fill-primary-ink font-mono" stroke="none">KEY</text>
+        <text x="160" y="148" textAnchor="middle" fontSize="13" fontWeight="600" className="fill-ink font-mono" stroke="none">TIER 2</text>
+        <text x="160" y="186" textAnchor="middle" fontSize="13" fontWeight="600" className="fill-ink font-mono" stroke="none">TIER 3</text>
+        {/* contas como pontos */}
+        <circle cx="146" cy="104" r="5" className={`fill-accent-vivid ${ink}`} strokeWidth={2} />
+        <circle cx="174" cy="104" r="5" className={`fill-accent-vivid ${ink}`} strokeWidth={2} />
+      </svg>
+      <TrophyIcon className="sticker tilt-r top-5 right-6 size-16" />
+      <HeartIcon className="sticker tilt-l top-6 left-6 size-12" />
+      <DumbbellIcon className="sticker tilt-s bottom-6 left-8 size-12" />
+      <ChatIcon className="sticker tilt-r right-8 bottom-6 size-12" />
+    </div>
+  );
+}
+
+/** Ápex Bloom: médico, campanhas e sessões semanais de resultado. */
+export function ApexArt() {
+  return (
+    <div className="relative flex h-full min-h-72 items-center justify-center bg-primary-soft p-8">
+      <svg viewBox="0 0 320 220" className="w-full max-w-md" fill="none" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {/* celular com post de campanha */}
+        <rect x="24" y="24" width="96" height="172" rx="16" className={`fill-surface ${ink}`} />
+        <rect x="38" y="48" width="68" height="60" rx="8" className={`fill-accent-soft ${ink}`} />
+        <path d="M72 64v28M58 78h28" className="stroke-accent-vivid" strokeWidth={6} />
+        <path d="M38 124h52M38 140h40" className="stroke-line" strokeWidth={6} />
+        <path d="M44 166c0-6 8-10 12-4 4-6 12-2 12 4 0 7-12 12-12 12s-12-5-12-12Z" className={`fill-accent-vivid ${ink}`} strokeWidth={2} />
+        {/* relatório semanal */}
+        <rect x="144" y="40" width="152" height="140" rx="14" className={`fill-surface ${ink}`} />
+        <text x="160" y="66" fontSize="12" fontWeight="600" className="fill-ink font-mono" stroke="none">SEMANA</text>
+        <path d="M160 160 196 128 222 142 276 92" className="stroke-primary" strokeWidth={4} />
+        <path d="M262 92h14v14" className="stroke-primary" strokeWidth={4} />
+        <path d="M160 166h120" className={ink} />
+      </svg>
+      <StethoscopeIcon className="sticker tilt-l top-5 right-6 size-16" />
+      <MegaphoneIcon className="sticker tilt-r bottom-5 left-1/2 size-12" />
+      <PhoneIcon className="sticker tilt-s top-6 left-4 size-10" />
+    </div>
+  );
+}
+
+/** QuintoAndar: tarefas canceladas viram tarefas certas, com e-mail automático. */
+export function QuintoAndarArt() {
+  return (
+    <div className="relative flex h-full min-h-72 items-center justify-center bg-surface-soft p-8">
+      <svg viewBox="0 0 320 220" className="w-full max-w-md" fill="none" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {/* lista antes */}
+        <rect x="20" y="36" width="112" height="148" rx="14" className={`fill-surface ${ink}`} />
+        <text x="36" y="62" fontSize="12" fontWeight="600" className="fill-ink-muted font-mono" stroke="none">ANTES</text>
+        <path d="M36 82l10 10M46 82 36 92M36 112l10 10M46 112l-10 10M36 142l5 5 9-11" className="stroke-accent-vivid" strokeWidth={3.5} />
+        <path d="M60 87h56M60 117h56M60 146h56" className="stroke-line" strokeWidth={6} />
+        {/* seta com template */}
+        <path d="M144 110h34m-10-10 10 10-10 10" className={ink} />
+        {/* lista depois */}
+        <rect x="188" y="36" width="112" height="148" rx="14" className={`fill-surface ${ink}`} />
+        <text x="204" y="62" fontSize="12" fontWeight="600" className="fill-primary font-mono" stroke="none">DEPOIS</text>
+        <path d="M204 86l5 5 9-11M204 116l5 5 9-11M204 146l5 5 9-11" className="stroke-primary" strokeWidth={3.5} />
+        <path d="M228 87h56M228 117h56M228 146h56" className="stroke-line" strokeWidth={6} />
+      </svg>
+      <HouseIcon className="sticker tilt-l top-4 left-6 size-14" />
+      <MailIcon className="sticker tilt-r right-6 bottom-5 size-14" />
+      <TasksIcon className="sticker tilt-s top-5 right-1/3 size-11" />
+    </div>
+  );
+}
+
 /** Mesa de "IA como ferramenta": usada no bloco de IA. */
 export function AiArt() {
   return (
@@ -97,6 +215,10 @@ export const caseArt = {
   skills: SkillsArt,
   clipper: ClipperArt,
   cost: CostArt,
+  site: SiteArt,
+  wellhub: WellhubArt,
+  apex: ApexArt,
+  quintoandar: QuintoAndarArt,
 };
 
 export type CaseArtName = keyof typeof caseArt;

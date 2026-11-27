@@ -230,6 +230,68 @@ export function CapIcon(p: IconProps) {
   );
 }
 
+/** Troféu de prata: prêmio. */
+export function TrophyIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M15 7h18v10a9 9 0 0 1-18 0Z" className={`fill-line ${ink}`} />
+      <path d="M15 11H8a6 6 0 0 0 7 7M33 11h7a6 6 0 0 1-7 7" className={ink} />
+      <path d="M24 26v8" className={ink} />
+      <rect x="15" y="34" width="18" height="8" rx="2" className={`fill-primary ${ink}`} />
+      <path d="M21 12l2 2 4-4" className="stroke-primary" strokeWidth={2.5} />
+    </Svg>
+  );
+}
+
+/** Estetoscópio: saúde. */
+export function StethoscopeIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M12 6v12a8 8 0 0 0 16 0V6" className={ink} />
+      <path d="M20 26v6a8 8 0 0 0 16 0v-4" className={ink} />
+      <circle cx="36" cy="24" r="5" className={`fill-accent-vivid ${ink}`} />
+      <circle cx="12" cy="6" r="2.5" className={`fill-ink ${ink}`} />
+      <circle cx="28" cy="6" r="2.5" className={`fill-ink ${ink}`} />
+    </Svg>
+  );
+}
+
+/** Envelope com raio: e-mail automático. */
+export function MailIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <rect x="5" y="11" width="38" height="28" rx="5" className={`fill-surface ${ink}`} />
+      <path d="M6 13l18 14 18-14" className={ink} />
+      <path d="M38 4l-5 9h6l-5 9" className="stroke-accent-vivid" strokeWidth={3} />
+    </Svg>
+  );
+}
+
+/** Haltere: bem-estar. */
+export function DumbbellIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <rect x="4" y="17" width="7" height="14" rx="2" className={`fill-primary ${ink}`} />
+      <rect x="11" y="13" width="6" height="22" rx="2" className={`fill-accent-vivid ${ink}`} />
+      <rect x="31" y="13" width="6" height="22" rx="2" className={`fill-accent-vivid ${ink}`} />
+      <rect x="37" y="17" width="7" height="14" rx="2" className={`fill-primary ${ink}`} />
+      <path d="M17 24h14" className={ink} strokeWidth={4} />
+    </Svg>
+  );
+}
+
+/** Lista de tarefas com uma cancelada e outras feitas. */
+export function TasksIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <rect x="7" y="5" width="34" height="38" rx="6" className={`fill-surface ${ink}`} />
+      <path d="M14 15l3 3 5-6M14 27l3 3 5-6" className="stroke-primary" strokeWidth={3} />
+      <path d="M14 35l6 6M20 35l-6 6" className="stroke-accent-vivid" strokeWidth={3} />
+      <path d="M27 15h8M27 27h8M27 38h8" className={ink} />
+    </Svg>
+  );
+}
+
 export const iconMap = {
   chart: ChartIcon,
   headset: HeadsetIcon,
@@ -247,6 +309,11 @@ export const iconMap = {
   bulb: BulbIcon,
   phone: PhoneIcon,
   cap: CapIcon,
+  trophy: TrophyIcon,
+  stethoscope: StethoscopeIcon,
+  mail: MailIcon,
+  dumbbell: DumbbellIcon,
+  tasks: TasksIcon,
 };
 
 export type IconName = keyof typeof iconMap;

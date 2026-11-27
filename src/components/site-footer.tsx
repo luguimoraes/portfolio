@@ -16,8 +16,8 @@ export function SiteFooter() {
           <Meta>Navegação</Meta>
           <ul className="mt-3 space-y-2 text-body-sm">
             {nav.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} className="text-ink-muted transition-colors hover:text-primary">
+              <li key={item.id}>
+                <a href={`/#${item.id}`} className="text-ink-muted transition-colors hover:text-primary">
                   {item.label}
                 </a>
               </li>
@@ -46,7 +46,7 @@ export function SiteFooter() {
         <p>
           {profile.fullName} · Desenhado e construído com dados, tokens e IA.
         </p>
-        <Pill href="#inicio" variant="secondary" arrow="up">
+        <Pill href="#top" variant="secondary" arrow="up">
           Voltar ao topo
         </Pill>
       </div>

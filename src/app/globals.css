@@ -9,6 +9,8 @@ html {
 body {
   background: var(--c-bg);
   color: var(--c-ink);
+  /* As formas desfocadas se movem além da borda; clip (e não hidden) mantém o sticky da pilha. */
+  overflow-x: clip;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

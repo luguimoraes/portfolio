@@ -1,22 +1,8 @@
 // Todo o texto do site fica aqui. Para atualizar um case ou a trajetória,
 // edite só este arquivo.
 import type { IconName } from "@/components/icons";
-import type { CaseArtName } from "@/components/illustrations";
 
 export type Link = { label: string; href: string };
-
-export type CaseStudy = {
-  slug: string;
-  art: CaseArtName;
-  title: string;
-  context: string; // período · onde · tipo
-  summary: string;
-  highlight: string; // resultado em uma linha
-  problem: string;
-  whatIDid: string;
-  tags: string[];
-  link?: Link;
-};
 
 export const profile = {
   name: "Luis Moraes",
@@ -44,57 +30,17 @@ export const links = {
   instagram: { label: "Instagram", href: "https://www.instagram.com/luguimoraes/" },
 } satisfies Record<string, Link>;
 
+// Seções da home. Os links usam "/#id" para funcionar também nas páginas de case.
 export const nav = [
-  { label: "Projetos", href: "#projetos" },
-  { label: "Como trabalho", href: "#como-trabalho" },
-  { label: "Trajetória", href: "#trajetoria" },
-  { label: "Contato", href: "#contato" },
+  { label: "Cases", id: "projetos" },
+  { label: "Como trabalho", id: "como-trabalho" },
+  { label: "Ferramentas", id: "ferramentas" },
+  { label: "Trajetória", id: "trajetoria" },
+  { label: "Contato", id: "contato" },
 ];
 
 export const casesIntro =
   "Projetos com clientes aparecem pelo meu papel e pelo processo, sem telas nem dados internos.";
-
-export const cases: CaseStudy[] = [
-  {
-    slug: "skills-cs",
-    art: "skills",
-    title: "Skills de IA para Customer Success",
-    context: "2026 · ZENVIA · SenseData",
-    summary:
-      "Agentes para o Claude que classificam o cliente na jornada da carteira, montam KPIs da Visão 360 e guiam a configuração de ETL, regras e réguas.",
-    highlight: "O conhecimento da plataforma virou ferramenta reutilizável, no formato exato que cada campo aceita.",
-    problem:
-      "Configurar regras, KPIs e notas de jornada no SenseData exige consultar documentação longa e repetir formatos rígidos, conta por conta.",
-    whatIDid:
-      "Escrevi skills que classificam o cliente na fase do CS Feeling e escrevem a nota do card, criam e validam o JSON dos KPIs e orientam o SenseConnect.",
-    tags: ["Claude", "Engenharia de prompt", "SQL", "SenseData"],
-  },
-  {
-    slug: "clipador",
-    art: "clipper",
-    title: "Clipador de lives",
-    context: "2026 · Projeto pessoal · Python",
-    summary:
-      "Programa que acompanha uma live da Twitch, detecta os melhores momentos pelo áudio e pelo chat e manda a prévia no Telegram para aprovar ou descartar.",
-    highlight: "Só grava canais que liberam cortes publicamente e calcula quando cada corte pode ser postado.",
-    problem: "Achar os melhores momentos em horas de live toma tempo, e postar corte sem permissão derruba o canal.",
-    whatIDid:
-      "Montei a captura com Streamlink e ffmpeg, a detecção por volume e ritmo do chat e o fluxo de aprovação pelo Telegram.",
-    tags: ["Python", "ffmpeg", "Streamlink", "Telegram"],
-  },
-  {
-    slug: "reducao-custo",
-    art: "cost",
-    title: "Redução de custo na indústria",
-    context: "2022 · Escola DNC · Líder de projeto",
-    summary:
-      "Projeto com um cliente industrial para reduzir o custo médio da chapa, conduzido com Scrum e Green Belt.",
-    highlight: "Meta de reduzir 5% até janeiro de 2023, atingida no prazo.",
-    problem: "O cliente precisava reduzir em 5% o custo médio da chapa, comparado ao mesmo mês do ano anterior.",
-    whatIDid: "Conduzi as reuniões com o cliente, organizei o projeto em sprints e fiz a análise em Excel.",
-    tags: ["Scrum", "Green Belt", "Excel", "Gestão de projetos"],
-  },
-];
 
 export const principles: { icon: IconName; title: string; text: string }[] = [
   {
@@ -227,3 +173,40 @@ export const education = [
 export const tools = ["Python", "SQL", "Google Sheets", "SenseData", "Lovable", "Claude", "Trello", "Asana"];
 
 export const languages = ["Português", "English", "Español"];
+
+// Caixa de ferramentas de CS: o que eu uso no dia a dia, por grupo.
+export const toolkit: { title: string; icon: IconName; text: string; items: string[] }[] = [
+  {
+    title: "Dados e BI",
+    icon: "chart",
+    text: "Consulto os dados direto na fonte, escrevo as queries dos KPIs e monto os painéis que acompanham o resultado.",
+    items: ["PostgreSQL", "Queries de KPI", "Dashboards", "Looker Studio", "Power BI", "Metabase", "Google Sheets"],
+  },
+  {
+    title: "Operação de CS",
+    icon: "headset",
+    text: "Estruturo a carteira por tier, segmento o atendimento e aplico as melhores práticas de retenção.",
+    items: ["Tiering de clientes", "Segmentação", "Playbooks de retenção", "Bots de atendimento", "SenseData", "Zendesk", "Jira", "CRM"],
+  },
+  {
+    title: "IA e automação",
+    icon: "bot",
+    text: "Transformo tarefas repetitivas em skills, scripts e bots, sempre com revisão humana antes do cliente.",
+    items: ["Claude", "Python", "Lovable"],
+  },
+];
+
+export const metrics: { name: string; text: string }[] = [
+  { name: "MRR", text: "Receita recorrente mensal da carteira." },
+  { name: "NRR", text: "Receita retida da base, somando expansão e descontando churn e downgrade." },
+  { name: "GRR", text: "Receita retida sem contar expansão: mostra o quanto a base segura." },
+  { name: "Churn", text: "Clientes ou receita perdidos no período." },
+  { name: "Health Score", text: "Saúde da conta a partir de uso, engajamento e relacionamento." },
+  { name: "NPS", text: "O quanto o cliente recomendaria a empresa." },
+  { name: "CSAT", text: "Satisfação com um atendimento ou entrega específica." },
+  { name: "SLA", text: "Prazo combinado de resposta e de solução." },
+  { name: "TTV", text: "Tempo até o cliente ver o primeiro valor do produto." },
+  { name: "Adoção", text: "Uso real dos recursos contratados." },
+  { name: "Expansão", text: "Upsell e cross-sell dentro da base." },
+  { name: "LTV", text: "Valor do cliente ao longo de toda a relação." },
+];

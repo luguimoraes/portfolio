@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { nav, profile } from "@/content/site";
 
@@ -39,61 +40,63 @@ function ThemeToggle() {
 }
 
 /** Topo com menu em pílula que destaca a seção visível. */
-export function SiteHeader() {
-  const [active, setActive] = useState<string | null>(null);
+export function SiteHeader({ current }: { current?: string }) {
+  // Nas páginas de case, `current` fixa o item ativo; na home, o scroll decide.
+  const [active, setActive] = useState<string | null>(current ?? null);
 
   useEffect(() => {
+    if (current) return;
     const sections = nav
-      .map((item) => document.querySelector<HTMLElement>(item.href))
+      .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+          if (entry.isIntersecting) setActive(entry.target.id);
         }
       },
       { rootMargin: "-45% 0px -50% 0px" },
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [current]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-bg/80 px-page-x backdrop-blur-md md:px-page-x-lg">
       <div className="mx-auto flex h-16 max-w-site items-center justify-between gap-4">
-        <a href="#inicio" className="font-bold tracking-tight" onClick={() => setActive(null)}>
+        <Link href="/" className="font-bold tracking-tight">
           {profile.name}
-        </a>
+        </Link>
 
         <nav
           aria-label="Seções"
           className="hidden items-center gap-1 rounded-pill border border-line bg-surface/70 p-1 text-body-sm md:flex"
         >
           {nav.map((item) => {
-            const isActive = active === item.href;
+            const isActive = active === item.id;
             return (
-              <a
-                key={item.href}
-                href={item.href}
+              <Link
+                key={item.id}
+                href={`/#${item.id}`}
                 aria-current={isActive ? "true" : undefined}
                 className={`rounded-pill px-4 py-1.5 transition-colors duration-300 ${
                   isActive ? "bg-primary text-primary-ink" : "text-ink-muted hover:text-ink"
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a
-            href="#contato"
+          <Link
+            href="/#contato"
             className="rounded-pill bg-primary px-4 py-2 text-body-sm font-semibold text-primary-ink transition-colors hover:bg-accent-vivid hover:text-on-accent md:hidden"
           >
             Contato
-          </a>
+          </Link>
         </div>
       </div>
     </header>

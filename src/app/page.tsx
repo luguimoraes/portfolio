@@ -7,12 +7,13 @@ import { Reveal, Stack } from "@/components/motion";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Timeline } from "@/components/timeline";
+import { Toolkit } from "@/components/toolkit";
 import { Meta, Pill, Section, Tag } from "@/components/ui";
+import { cases } from "@/content/cases";
 import {
   aiBlock,
   career,
   careerIntro,
-  cases,
   casesIntro,
   education,
   languages,
@@ -33,7 +34,7 @@ export default function Home() {
         <Hero />
 
         {/* ---------- Projetos ---------- */}
-        <Section id="projetos" eyebrow="Projetos" title="Trabalhos selecionados" aside={casesIntro}>
+        <Section id="projetos" eyebrow="Cases" title="Trabalhos selecionados" aside={casesIntro}>
           <Stack>
             {cases.map((item, i) => (
               <CaseCard key={item.slug} item={item} index={i} />
@@ -79,6 +80,16 @@ export default function Home() {
               ))}
             </Reveal>
           </div>
+        </Section>
+
+        {/* ---------- Caixa de ferramentas ---------- */}
+        <Section
+          id="ferramentas"
+          eyebrow="Caixa de ferramentas"
+          title="Dados, operação e IA a serviço da carteira"
+          aside="As ferramentas e métricas que uso para consultar dados, montar KPIs, segmentar clientes e reter receita."
+        >
+          <Toolkit />
         </Section>
 
         {/* ---------- Trajetória ---------- */}

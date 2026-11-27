@@ -15,11 +15,13 @@ export function Reveal({
   as: Tag = "div",
   group = false,
   className = "",
+  id,
 }: {
   children: ReactNode;
   as?: ElementType;
   group?: boolean;
   className?: string;
+  id?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
 
@@ -40,7 +42,7 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag ref={ref} className={`${group ? "reveal-group" : "reveal"} ${className}`}>
+    <Tag ref={ref} id={id} className={`${group ? "reveal-group" : "reveal"} ${className}`}>
       {children}
     </Tag>
   );

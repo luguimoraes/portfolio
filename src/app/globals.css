@@ -108,6 +108,17 @@ body {
   .typing-dot:nth-child(3) { animation-delay: 0.3s; }
 }
 
+/* Vapor da caneca na ilustração do "Sobre mim". */
+@media (prefers-reduced-motion: no-preference) {
+  .steam {
+    animation: steam 2.4s ease-in-out infinite;
+  }
+}
+@keyframes steam {
+  0%, 100% { opacity: 0.2; transform: translateY(4px); }
+  50% { opacity: 1; transform: translateY(-4px); }
+}
+
 /* Polaroid: inclinada, endireita no hover. */
 .polaroid {
   transform: rotate(4deg);

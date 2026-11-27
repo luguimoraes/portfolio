@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { CaseStudy, Figure } from "@/content/cases";
+import { getContent, localePath, type Lang } from "@/content/i18n";
 import { LockChip } from "./case-card";
 import { Icon } from "./icons";
 import { caseArt } from "./illustrations";
@@ -28,13 +29,13 @@ function KpiValue({ value }: { value: string }) {
   return <>{value}</>;
 }
 
-function FigureBlock({ figure }: { figure: Figure }) {
+function FigureBlock({ figure, lang }: { figure: Figure; lang: Lang }) {
   if (figure.kind === "art") {
     const Art = caseArt[figure.art];
     return (
       <figure className="mt-8">
         <div className="overflow-hidden rounded-card border border-line">
-          <Art />
+          <Art lang={lang} />
         </div>
         <figcaption className="mt-3 text-body-sm text-ink-muted">{figure.caption}</figcaption>
       </figure>
@@ -70,7 +71,8 @@ function FigureBlock({ figure }: { figure: Figure }) {
   );
 }
 
-export function CaseHeader({ item }: { item: CaseStudy }) {
+export function CaseHeader({ item, lang }: { item: CaseStudy; lang: Lang }) {
+  const { ui } = getContent(lang);
   const Art = caseArt[item.art];
   return (
     <header className="relative isolate px-page-x pt-10 md:px-page-x-lg md:pt-14">
@@ -80,13 +82,13 @@ export function CaseHeader({ item }: { item: CaseStudy }) {
       </div>
       <div className="mx-auto max-w-site">
         <Link
-          href="/#projetos"
+          href={`${localePath(lang)}#projetos`}
           className="group inline-flex items-center gap-2 text-body-sm text-ink-muted transition-colors hover:text-primary"
         >
           <span aria-hidden className="transition-transform group-hover:-translate-x-1">
             ←
           </span>
-          Voltar aos cases
+          {ui.cases.back}
         </Link>
 
         <div className="stagger mt-8 grid gap-8 lg:grid-cols-12">
@@ -113,7 +115,7 @@ export function CaseHeader({ item }: { item: CaseStudy }) {
             )}
             {item.confidential && (
               <div className="mt-6 flex max-w-reading items-start gap-3 rounded-control border border-line bg-surface/70 p-4 text-body-sm text-ink-muted">
-                <LockChip />
+                <LockChip label={ui.cases.internal} />
                 <p>{item.confidential}</p>
               </div>
             )}
@@ -121,13 +123,13 @@ export function CaseHeader({ item }: { item: CaseStudy }) {
           <dl className="space-y-5 lg:col-span-4 lg:pt-8">
             <div>
               <dt>
-                <Meta className="text-primary">Papel</Meta>
+                <Meta className="text-primary">{ui.cases.role}</Meta>
               </dt>
               <dd className="mt-1 text-body-sm font-medium">{item.role}</dd>
             </div>
             <div>
               <dt>
-                <Meta className="text-primary">Foco</Meta>
+                <Meta className="text-primary">{ui.cases.focus}</Meta>
               </dt>
               <dd className="mt-1 text-body-sm font-medium">{item.focus}</dd>
             </div>
@@ -136,7 +138,7 @@ export function CaseHeader({ item }: { item: CaseStudy }) {
 
         <div className="stagger mt-12">
           <div className="overflow-hidden rounded-card border border-line shadow-card">
-            <Art />
+            <Art lang={lang} />
           </div>
         </div>
       </div>
@@ -144,18 +146,19 @@ export function CaseHeader({ item }: { item: CaseStudy }) {
   );
 }
 
-export function CaseBody({ item }: { item: CaseStudy }) {
+export function CaseBody({ item, lang }: { item: CaseStudy; lang: Lang }) {
+  const { ui } = getContent(lang);
   const chips = [
-    ...(item.steps ? [{ id: "processo", label: "Processo" }] : []),
-    { id: "impacto", label: "Impacto" },
+    ...(item.steps ? [{ id: "processo", label: ui.cases.process }] : []),
+    { id: "impacto", label: ui.cases.impact },
     ...item.sections.map((s) => ({ id: s.id, label: s.label })),
-    ...(item.links ? [{ id: "links", label: "Links" }] : []),
+    ...(item.links ? [{ id: "links", label: ui.cases.links }] : []),
   ];
 
   return (
     <div className="mx-auto max-w-site space-y-20 px-page-x py-section md:space-y-28 md:px-page-x-lg md:py-section-lg">
       {/* Resumo */}
-      <Row label="Resumo">
+      <Row label={ui.cases.summary}>
         <p className="text-title-2 font-semibold">{item.lead}</p>
         <div className="mt-6 space-y-4 text-body text-ink-muted">
           {item.intro.map((p) => (
@@ -163,7 +166,7 @@ export function CaseBody({ item }: { item: CaseStudy }) {
           ))}
         </div>
         <div className="mt-8">
-          <Meta>Neste case</Meta>
+          <Meta>{ui.cases.inThisCase}</Meta>
           <ul className="mt-3 flex flex-wrap gap-2">
             {chips.map((chip) => (
               <li key={chip.id}>
@@ -180,7 +183,7 @@ export function CaseBody({ item }: { item: CaseStudy }) {
       </Row>
 
       {/* Ferramentas */}
-      <Row label="Ferramentas">
+      <Row label={ui.cases.tools}>
         <ul className="flex flex-wrap gap-2">
           {item.tags.map((tag) => (
             <li key={tag}>
@@ -209,16 +212,21 @@ export function CaseBody({ item }: { item: CaseStudy }) {
 
       {/* Processo */}
       {item.steps && (
-        <Row id="processo" label="Processo">
-          <h2 className="text-title-1 font-extrabold">O processo em {item.steps.length} etapas</h2>
+        <Row id="processo" label={ui.cases.process}>
+          <h2 className="text-title-1 font-extrabold">{ui.cases.processTitle(item.steps.length)}</h2>
           <div className="mt-8">
-            <ProcessSteps steps={item.steps} />
+            <ProcessSteps
+              steps={item.steps}
+              hint={ui.cases.stepsHint}
+              label={ui.cases.stepsLabel}
+              stepOf={item.steps.map((_, i) => ui.cases.stepOf(i + 1, item.steps!.length))}
+            />
           </div>
         </Row>
       )}
 
       {/* Impacto */}
-      <Row id="impacto" label="Impacto">
+      <Row id="impacto" label={ui.cases.impact}>
         <h2 className="text-title-1 font-extrabold">{item.impact.headline}</h2>
         <div className="mt-8 grid gap-px overflow-hidden rounded-card border border-line bg-line md:grid-cols-2">
           {[item.impact.left, item.impact.right].map((box) => (
@@ -255,13 +263,13 @@ export function CaseBody({ item }: { item: CaseStudy }) {
               “{section.quote}”
             </blockquote>
           )}
-          {section.figure && <FigureBlock figure={section.figure} />}
+          {section.figure && <FigureBlock figure={section.figure} lang={lang} />}
         </Row>
       ))}
 
       {/* Links */}
       {item.links && (
-        <Row id="links" label="Links">
+        <Row id="links" label={ui.cases.links}>
           <ul className="space-y-3">
             {item.links.map((link) => (
               <li key={link.href}>
@@ -285,24 +293,25 @@ export function CaseBody({ item }: { item: CaseStudy }) {
   );
 }
 
-export function CaseNav({ prev, next }: { prev?: CaseStudy; next?: CaseStudy }) {
+export function CaseNav({ prev, next, lang }: { prev?: CaseStudy; next?: CaseStudy; lang: Lang }) {
+  const { ui } = getContent(lang);
   return (
     <nav
-      aria-label="Outros cases"
+      aria-label={ui.cases.others}
       className="mx-auto grid max-w-site gap-4 border-t border-line px-page-x py-10 sm:grid-cols-2 md:px-page-x-lg"
     >
       <div>
         {prev && (
-          <Link href={`/cases/${prev.slug}`} className="group block">
-            <Meta>← Anterior</Meta>
+          <Link href={localePath(lang, `/cases/${prev.slug}`)} className="group block">
+            <Meta>{ui.cases.prev}</Meta>
             <p className="mt-1 text-title-3 font-bold transition-colors group-hover:text-primary">{prev.title}</p>
           </Link>
         )}
       </div>
       <div className="sm:text-right">
         {next && (
-          <Link href={`/cases/${next.slug}`} className="group block">
-            <Meta>Próximo →</Meta>
+          <Link href={localePath(lang, `/cases/${next.slug}`)} className="group block">
+            <Meta>{ui.cases.next}</Meta>
             <p className="mt-1 text-title-3 font-bold transition-colors group-hover:text-primary">{next.title}</p>
           </Link>
         )}

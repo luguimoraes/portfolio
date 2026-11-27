@@ -399,7 +399,7 @@ const allCases: CaseStudy[] = [
           "A primeira versão era limpa, mas parada, e foi recusada. A segunda ganhou movimento, ícones e a estrutura de cases que você está lendo agora.",
         ],
         bullets: [
-          "Telefone e e-mail ficaram fora do site; o contato é pelo LinkedIn.",
+          "O e-mail ficou fora do site; o contato é pelo WhatsApp e pelo LinkedIn.",
           "Nomes de clientes não aparecem, mesmo os que estão no LinkedIn.",
           "Números só entram quando foram medidos; o resto aparece como próximo passo.",
         ],

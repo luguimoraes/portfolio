@@ -4,14 +4,24 @@ import { useState } from "react";
 import type { ProcessStep } from "@/content/cases";
 
 /** Etapas do processo: toque em uma etapa para ler os detalhes. */
-export function ProcessSteps({ steps }: { steps: ProcessStep[] }) {
+export function ProcessSteps({
+  steps,
+  hint,
+  label,
+  stepOf,
+}: {
+  steps: ProcessStep[];
+  hint: string;
+  label: string;
+  stepOf: string[];
+}) {
   const [open, setOpen] = useState(0);
   const step = steps[open];
 
   return (
     <div className="rounded-card border border-line bg-surface p-4 shadow-card md:p-6">
-      <p className="px-2 text-body-sm text-ink-muted">Toque em uma etapa para ler os detalhes.</p>
-      <ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label="Etapas do processo">
+      <p className="px-2 text-body-sm text-ink-muted">{hint}</p>
+      <ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-5" role="tablist" aria-label={label}>
         {steps.map((s, i) => {
           const active = i === open;
           return (
@@ -52,7 +62,7 @@ export function ProcessSteps({ steps }: { steps: ProcessStep[] }) {
       >
         <div className="md:col-span-4">
           <p className="font-mono text-meta uppercase text-accent">
-            Etapa {open + 1} de {steps.length}
+            {stepOf[open]}
           </p>
           <p className="mt-2 text-title-3 font-bold">{step.title}</p>
           <ul className="mt-3 flex flex-wrap gap-2">

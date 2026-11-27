@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { links, profile } from "@/content/site";
+import { getContent, type Content, type Lang } from "@/content/i18n";
 import { Ambient } from "./decor";
 import {
   BotIcon,
@@ -13,7 +13,7 @@ import {
 } from "./icons";
 import { Meta, Pill } from "./ui";
 
-function Portrait() {
+function Portrait({ profile }: { profile: Content["profile"] }) {
   const initials = profile.name
     .split(" ")
     .map((part) => part[0])
@@ -23,7 +23,7 @@ function Portrait() {
       {profile.photo ? (
         <Image
           src={profile.photo}
-          alt={`Foto de ${profile.name}`}
+          alt={profile.name}
           fill
           sizes="(min-width: 768px) 18rem, 14rem"
           className="object-cover"
@@ -39,7 +39,7 @@ function Portrait() {
 }
 
 /** Foto com texto girando em volta e ícones de CS flutuando. */
-function Orbit() {
+function Orbit({ profile }: { profile: Content["profile"] }) {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-sm md:max-w-md">
       <svg viewBox="0 0 300 300" className="orbit-text absolute inset-0 size-full" aria-hidden>
@@ -52,7 +52,7 @@ function Orbit() {
           </textPath>
         </text>
       </svg>
-      <Portrait />
+      <Portrait profile={profile} />
       <ChartIcon className="sticker tilt-l top-0 left-1/4 size-14" />
       <ChatIcon className="sticker tilt-r top-6 right-2 size-14" />
       <HeadsetIcon className="sticker tilt-s top-1/2 -left-2 size-14" />
@@ -65,7 +65,8 @@ function Orbit() {
   );
 }
 
-export function Hero() {
+export function Hero({ lang }: { lang: Lang }) {
+  const { profile, links, ui } = getContent(lang);
   return (
     <section id="inicio" className="relative isolate px-page-x pt-12 md:px-page-x-lg md:pt-20">
       <Ambient />
@@ -79,33 +80,33 @@ export function Hero() {
             {profile.badge}
           </span>
           <h1 className="mt-6 text-display-compact font-extrabold md:text-display">
-            Oi, eu sou o {profile.firstName}.
+            {ui.hero.greeting} {profile.firstName}.
             <span className="block text-primary">{profile.role}.</span>
           </h1>
           <p className="mt-6 max-w-reading text-body-lg text-ink-muted">{profile.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Pill href="#projetos" arrow="down">
-              Ver projetos
+              {ui.hero.seeCases}
             </Pill>
             <Pill href={links.linkedin.href} variant="secondary" external>
-              Ver LinkedIn
+              {ui.hero.seeLinkedin}
             </Pill>
           </div>
         </div>
 
         <div className="stagger lg:col-span-5">
-          <Orbit />
+          <Orbit profile={profile} />
         </div>
       </div>
 
       {/* Faixa: onde trabalhei e o que estou estudando */}
       <div className="stagger mx-auto mt-16 grid max-w-site gap-8 border-t border-line pt-8 pb-section md:grid-cols-2 md:pb-section-lg">
         <div>
-          <Meta>Onde trabalhei</Meta>
+          <Meta>{ui.hero.workedAt}</Meta>
           <p className="mt-2 text-body">{profile.workedAt.join(" · ")}</p>
         </div>
         <div>
-          <Meta>Estudando agora</Meta>
+          <Meta>{ui.hero.studying}</Meta>
           <p className="mt-2 text-body">{profile.studying.join(" · ")}</p>
         </div>
       </div>

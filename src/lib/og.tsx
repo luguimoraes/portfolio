@@ -5,17 +5,14 @@
  *
  * O ImageResponse não lê Tailwind: ele só aceita estilo inline. Por isso as
  * cores abaixo espelham src/design/tokens.css (tema escuro) e este arquivo
- * fica fora do `npm run design:check`.
+ * fica fora do `npm run design:check` (src/lib não é verificado).
  */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { cases } from "@/content/cases";
-import { profile } from "@/content/site";
+import { getContent, type Lang } from "@/content/i18n";
 
-export const alt = `${profile.name} · ${profile.role} · Portfólio`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const ogSize = { width: 1200, height: 630 };
 
 const c = {
   bg: "#070D1C",
@@ -31,7 +28,8 @@ const c = {
 
 const font = (pkg: string, file: string) => readFile(join(process.cwd(), "node_modules/@fontsource", pkg, "files", file));
 
-export default async function Image() {
+export async function renderOgImage(lang: Lang) {
+  const { cases, profile, ui } = getContent(lang);
   const [jakarta700, jakarta800, jakarta500, plex500, photo] = await Promise.all([
     font("plus-jakarta-sans", "plus-jakarta-sans-latin-700-normal.woff"),
     font("plus-jakarta-sans", "plus-jakarta-sans-latin-800-normal.woff"),
@@ -91,7 +89,7 @@ export default async function Image() {
               }}
             >
               <div style={{ width: 14, height: 14, borderRadius: 999, background: c.accent }} />
-              PORTFÓLIO
+              {ui.meta.ogLabel}
             </div>
             <div style={{ marginTop: 28, fontSize: 92, fontWeight: 800, letterSpacing: -3, lineHeight: 1 }}>
               {profile.name}
@@ -100,14 +98,14 @@ export default async function Image() {
               {profile.role}
             </div>
             <div style={{ marginTop: 22, fontSize: 30, fontWeight: 500, color: c.muted }}>
-              Dados, automação e IA aplicada a CS.
+              {ui.meta.ogTagline}
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {award && chip("Prata · Prêmio ClienteSA 2023", true)}
-              {chip(`${cases.length} cases de CS e IA`)}
+              {award && chip(ui.meta.ogAward, true)}
+              {chip(`${cases.length} ${ui.meta.ogCases}`)}
             </div>
             <div style={{ display: "flex", fontFamily: "Plex", fontSize: 24, color: c.accent }}>
               luguimoraes-portfolio.vercel.app →
@@ -146,7 +144,7 @@ export default async function Image() {
       </div>
     ),
     {
-      ...size,
+      ...ogSize,
       fonts: [
         { name: "Jakarta", data: jakarta500, weight: 500, style: "normal" },
         { name: "Jakarta", data: jakarta700, weight: 700, style: "normal" },

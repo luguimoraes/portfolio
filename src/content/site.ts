@@ -34,7 +34,7 @@ export const links = {
   },
 } satisfies Record<string, Link>;
 
-export const phoneDisplay = "+55 12 99260-1452";
+export const phoneDisplay: string = "+55 12 99260-1452";
 
 // Seções da home. Os links usam "/#id" para funcionar também nas páginas de case.
 export const nav = [
@@ -45,7 +45,7 @@ export const nav = [
   { label: "Contato", id: "contato" },
 ];
 
-export const casesIntro =
+export const casesIntro: string =
   "Projetos com clientes aparecem pelo meu papel e pelo processo, sem telas nem dados internos.";
 
 export const principles: { icon: IconName; title: string; text: string }[] = [
@@ -101,7 +101,7 @@ export type CareerItem = {
   logos?: { src: string; alt: string }[];
 };
 
-export const careerIntro =
+export const careerIntro: string =
   "Atendimento, benefício corporativo, logística, marketing e SaaS: contextos diferentes que formaram um jeito de cuidar de cliente com método e dados.";
 
 export const career: CareerItem[] = [
@@ -148,6 +148,7 @@ export const career: CareerItem[] = [
     company: "Ápex Bloom",
     note: "KPIs, NPS e SQL para ajustar campanhas e expandir contratos.",
     icon: "megaphone",
+    logos: [{ src: "/logos/apex-bloom.png", alt: "Ápex Bloom" }],
   },
   {
     period: "2021 – 2022",
@@ -240,4 +241,87 @@ export const about = {
 export const contact = {
   title: "Vamos trabalhar juntos?",
   text: "Para oportunidades em Customer Success, projetos com dados e IA aplicada a CS ou uma boa conversa sobre carteira. O caminho mais rápido é o WhatsApp.",
+};
+
+// Textos de interface (botões, rótulos, títulos de seção).
+export const ui = {
+  lang: "pt-BR",
+  meta: {
+    title: "Luis Moraes · Customer Success Manager",
+    description: profile.intro,
+    ogAlt: "Luis Moraes · Customer Success Manager · Portfólio",
+    ogLabel: "PORTFÓLIO",
+    ogTagline: "Dados, automação e IA aplicada a CS.",
+    ogAward: "Prata · Prêmio ClienteSA 2023",
+    ogCases: "cases de CS e IA",
+  },
+  header: {
+    sections: "Seções",
+    toDark: "Mudar para tema escuro",
+    toLight: "Mudar para tema claro",
+    switchLang: "EN",
+    switchLangLabel: "View this page in English",
+    contact: "Contato",
+  },
+  hero: {
+    greeting: "Oi, eu sou o",
+    seeCases: "Ver projetos",
+    seeLinkedin: "Ver LinkedIn",
+    workedAt: "Onde trabalhei",
+    studying: "Estudando agora",
+  },
+  about: {
+    eyebrow: "Quem sou eu",
+    links: "Todos os links",
+    cta: "Ver minha trajetória",
+    artTitle:
+      "Ilustração de uma mesa de trabalho de Customer Success: notebook com painel de KPIs, gauge de NPS, headset e café",
+  },
+  contact: { whatsapp: "Chamar no WhatsApp" },
+  sections: {
+    casesEyebrow: "Cases",
+    casesTitle: "Trabalhos selecionados",
+    howEyebrow: "Como eu trabalho",
+    howTitle: "Quatro hábitos que levo para cada carteira",
+    toolsEyebrow: "Caixa de ferramentas",
+    toolsTitle: "Dados, operação e IA a serviço da carteira",
+    toolsAside: "As ferramentas e métricas que uso para consultar dados, montar KPIs, segmentar clientes e reter receita.",
+    careerEyebrow: "Trajetória",
+    careerTitle: "Nem tudo começou no Customer Success.",
+    today: "Hoje",
+    eduEyebrow: "Formação",
+    eduTitle: "Aprendendo em público",
+    tools: "Ferramentas",
+    languages: "Idiomas",
+    inProgress: "Em andamento",
+    metricsEyebrow: "Métricas que acompanho",
+    metricsTitle: "O idioma da carteira",
+    metricsText: "Retenção, receita e experiência: os indicadores que uso para ler a saúde de cada conta e priorizar a ação.",
+  },
+  cases: {
+    internal: "Projeto interno",
+    read: "Ler o case",
+    back: "Voltar aos cases",
+    role: "Papel",
+    focus: "Foco",
+    summary: "Resumo",
+    inThisCase: "Neste case",
+    process: "Processo",
+    impact: "Impacto",
+    links: "Links",
+    tools: "Ferramentas",
+    processTitle: (n: number) => `O processo em ${n} etapas`,
+    stepsHint: "Toque em uma etapa para ler os detalhes.",
+    stepsLabel: "Etapas do processo",
+    stepOf: (i: number, n: number) => `Etapa ${i} de ${n}`,
+    prev: "← Anterior",
+    next: "Próximo →",
+    others: "Outros cases",
+  },
+  footer: {
+    nav: "Navegação",
+    navLabel: "Navegação do rodapé",
+    elsewhere: "Em outros lugares",
+    top: "Voltar ao topo",
+  },
 };

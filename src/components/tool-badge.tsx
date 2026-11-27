@@ -39,6 +39,14 @@ const glyphByTool: Record<string, Glyph> = {
   "Tiering de clientes": "board",
   "Segmentação": "cycle",
   "Playbooks de retenção": "crm",
+  "KPI queries": "db",
+  "Customer tiering": "board",
+  Segmentation: "cycle",
+  "Retention playbooks": "crm",
+  "Support bots": "chat",
+  Agile: "cycle",
+  "Project management": "cycle",
+  "Gestão de projetos": "cycle",
 };
 
 function GlyphSvg({ glyph }: { glyph: Glyph }) {

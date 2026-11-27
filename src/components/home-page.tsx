@@ -11,38 +11,33 @@ import { SiteHeader } from "@/components/site-header";
 import { Timeline } from "@/components/timeline";
 import { Toolkit } from "@/components/toolkit";
 import { Meta, Section, Tag } from "@/components/ui";
-import { cases } from "@/content/cases";
-import {
-  aiBlock,
-  career,
-  careerIntro,
-  casesIntro,
-  education,
-  languages,
-  principles,
-  tools,
-} from "@/content/site";
+import { getContent, type Lang } from "@/content/i18n";
 
-export default function Home() {
+/** Home completa; usada em "/" (português) e "/en" (inglês). */
+export function HomePage({ lang }: { lang: Lang }) {
+  const { aiBlock, career, careerIntro, cases, casesIntro, education, languages, principles, tools, ui } =
+    getContent(lang);
+  const s = ui.sections;
+
   return (
     <>
       <ScrollProgress />
-      <SiteHeader />
+      <SiteHeader lang={lang} />
       <main className="flex-1">
-        <Hero />
-        <About />
+        <Hero lang={lang} />
+        <About lang={lang} />
 
         {/* ---------- Projetos ---------- */}
-        <Section id="projetos" eyebrow="Cases" title="Trabalhos selecionados" aside={casesIntro}>
+        <Section id="projetos" eyebrow={s.casesEyebrow} title={s.casesTitle} aside={casesIntro}>
           <Stack>
             {cases.map((item, i) => (
-              <CaseCard key={item.slug} item={item} index={i} />
+              <CaseCard key={item.slug} item={item} index={i} lang={lang} />
             ))}
           </Stack>
         </Section>
 
         {/* ---------- Como eu trabalho ---------- */}
-        <Section id="como-trabalho" eyebrow="Como eu trabalho" title="Quatro hábitos que levo para cada carteira" soft>
+        <Section id="como-trabalho" eyebrow={s.howEyebrow} title={s.howTitle} soft>
           <Reveal as="ul" group className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {principles.map((p) => (
               <li key={p.title} className="group">
@@ -82,22 +77,17 @@ export default function Home() {
         </Section>
 
         {/* ---------- Caixa de ferramentas ---------- */}
-        <Section
-          id="ferramentas"
-          eyebrow="Caixa de ferramentas"
-          title="Dados, operação e IA a serviço da carteira"
-          aside="As ferramentas e métricas que uso para consultar dados, montar KPIs, segmentar clientes e reter receita."
-        >
-          <Toolkit />
+        <Section id="ferramentas" eyebrow={s.toolsEyebrow} title={s.toolsTitle} aside={s.toolsAside}>
+          <Toolkit lang={lang} />
         </Section>
 
         {/* ---------- Trajetória ---------- */}
-        <Section id="trajetoria" eyebrow="Trajetória" title="Nem tudo começou no Customer Success." center aside={careerIntro}>
-          <Timeline items={career} />
+        <Section id="trajetoria" eyebrow={s.careerEyebrow} title={s.careerTitle} center aside={careerIntro}>
+          <Timeline items={career} todayLabel={s.today} />
         </Section>
 
-        {/* ---------- Formação e ferramentas ---------- */}
-        <Section id="formacao" eyebrow="Formação" title="Aprendendo em público" soft>
+        {/* ---------- Formação ---------- */}
+        <Section id="formacao" eyebrow={s.eduEyebrow} title={s.eduTitle} soft>
           <Reveal as="ul" group className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {education.map((ed) => (
               <li
@@ -110,7 +100,7 @@ export default function Home() {
                 <p className="mt-1 text-body-sm text-ink-muted">{ed.school}</p>
                 <span
                   className={`mt-auto inline-block self-start rounded-pill px-2.5 py-0.5 pt-1 font-mono text-meta ${
-                    ed.status === "Em andamento" ? "bg-accent-soft text-accent" : "bg-primary-soft text-primary"
+                    ed.status === s.inProgress ? "bg-accent-soft text-accent" : "bg-primary-soft text-primary"
                   }`}
                 >
                   {ed.status}
@@ -120,7 +110,7 @@ export default function Home() {
           </Reveal>
           <Reveal className="mt-12 grid gap-8 md:grid-cols-2">
             <div>
-              <Meta>Ferramentas</Meta>
+              <Meta>{s.tools}</Meta>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {tools.map((tool) => (
                   <li key={tool}>
@@ -130,16 +120,16 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <Meta>Idiomas</Meta>
+              <Meta>{s.languages}</Meta>
               <p className="mt-3 text-body">{languages.join(" · ")}</p>
             </div>
           </Reveal>
         </Section>
 
         {/* ---------- Contato ---------- */}
-        <Contact />
+        <Contact lang={lang} />
       </main>
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </>
   );
 }

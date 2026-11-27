@@ -5,35 +5,48 @@ import { CaseBody, CaseHeader, CaseNav } from "@/components/case-page";
 import { ScrollProgress } from "@/components/decor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { cases, getCase, getNeighbors } from "@/content/cases";
-import { profile } from "@/content/site";
+import { getContent, localePath, type Lang } from "@/content/i18n";
 
-export function generateStaticParams() {
-  return cases.map((c) => ({ slug: c.slug }));
+type SlugParams = Promise<{ slug: string }>;
+
+/** Os slugs são os mesmos nos dois idiomas. */
+export function caseStaticParams() {
+  return getContent("pt").cases.map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/cases/[slug]">): Promise<Metadata> {
+export async function caseMetadata(lang: Lang, params: SlugParams): Promise<Metadata> {
   const { slug } = await params;
+  const { getCase, profile } = getContent(lang);
   const item = getCase(slug);
   if (!item) return {};
   return {
     title: `${item.title} · ${profile.name}`,
     description: item.subtitle,
-    openGraph: { title: item.title, description: item.subtitle, locale: "pt_BR", type: "article" },
+    alternates: {
+      canonical: localePath(lang, `/cases/${slug}`),
+      languages: { "pt-BR": `/cases/${slug}`, en: `/en/cases/${slug}` },
+    },
+    openGraph: {
+      title: item.title,
+      description: item.subtitle,
+      locale: lang === "en" ? "en_US" : "pt_BR",
+      type: "article",
+    },
   };
 }
 
 /** Conteúdo que depende do endereço: fica dentro do Suspense (navegação instantânea). */
-async function CaseContent({ params }: { params: PageProps<"/cases/[slug]">["params"] }) {
+async function CaseContent({ lang, params }: { lang: Lang; params: SlugParams }) {
   const { slug } = await params;
+  const { getCase, getNeighbors } = getContent(lang);
   const item = getCase(slug);
   if (!item) notFound();
   const { prev, next } = getNeighbors(slug);
   return (
     <>
-      <CaseHeader item={item} />
-      <CaseBody item={item} />
-      <CaseNav prev={prev} next={next} />
+      <CaseHeader item={item} lang={lang} />
+      <CaseBody item={item} lang={lang} />
+      <CaseNav prev={prev} next={next} lang={lang} />
     </>
   );
 }
@@ -48,17 +61,17 @@ function CaseSkeleton() {
   );
 }
 
-export default function CasePage({ params }: PageProps<"/cases/[slug]">) {
+export function CaseRoute({ lang, params }: { lang: Lang; params: SlugParams }) {
   return (
     <>
       <ScrollProgress />
-      <SiteHeader current="projetos" />
+      <SiteHeader lang={lang} current="projetos" />
       <main className="flex-1">
         <Suspense fallback={<CaseSkeleton />}>
-          <CaseContent params={params} />
+          <CaseContent lang={lang} params={params} />
         </Suspense>
       </main>
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </>
   );
 }

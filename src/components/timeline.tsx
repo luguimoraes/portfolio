@@ -41,7 +41,7 @@ function Card({ item }: { item: CareerItem }) {
  * em volta de uma linha tracejada com o ícone de cada fase.
  * No celular vira uma coluna única com a linha à esquerda.
  */
-export function Timeline({ items }: { items: CareerItem[] }) {
+export function Timeline({ items, todayLabel }: { items: CareerItem[]; todayLabel: string }) {
   return (
     <ol className="relative">
       <span aria-hidden className="timeline-line absolute top-0 bottom-0 left-6 w-0.5 md:left-1/2 md:-translate-x-1/2" />
@@ -62,7 +62,7 @@ export function Timeline({ items }: { items: CareerItem[] }) {
               </div>
               {/* espaço vazio do outro lado */}
               <div className={`hidden md:col-span-5 md:block ${left ? "md:order-3" : "md:order-1"}`}>
-                {i === 0 && <Meta className="text-accent">Hoje</Meta>}
+                {i === 0 && <Meta className="text-accent">{todayLabel}</Meta>}
               </div>
             </Reveal>
           </li>

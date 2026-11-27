@@ -1,11 +1,12 @@
-import { metrics, toolkit } from "@/content/site";
+import { getContent, type Lang } from "@/content/i18n";
 import { Icon } from "./icons";
 import { Reveal } from "./motion";
 import { ToolBadge } from "./tool-badge";
 import { Meta } from "./ui";
 
 /** Caixa de ferramentas de CS: grupos de ferramentas e as métricas que acompanho. */
-export function Toolkit() {
+export function Toolkit({ lang }: { lang: Lang }) {
+  const { metrics, toolkit, ui } = getContent(lang);
   return (
     <div className="space-y-16">
       <Reveal group className="grid gap-6 lg:grid-cols-3">
@@ -31,11 +32,11 @@ export function Toolkit() {
       <div>
         <Reveal className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <Meta className="text-accent">Métricas que acompanho</Meta>
-            <p className="mt-2 text-title-2 font-extrabold">O idioma da carteira</p>
+            <Meta className="text-accent">{ui.sections.metricsEyebrow}</Meta>
+            <p className="mt-2 text-title-2 font-extrabold">{ui.sections.metricsTitle}</p>
           </div>
           <p className="max-w-md text-body-sm text-ink-muted">
-            Retenção, receita e experiência: os indicadores que uso para ler a saúde de cada conta e priorizar a ação.
+            {ui.sections.metricsText}
           </p>
         </Reveal>
         <Reveal as="ul" group className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

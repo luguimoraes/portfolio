@@ -1,4 +1,4 @@
-import { contact, links, profile } from "@/content/site";
+import { getContent, type Lang } from "@/content/i18n";
 import { CodeGlyph, ProfileGlyph, WhatsAppGlyph } from "./contact-icons";
 import { Reveal } from "./motion";
 
@@ -20,7 +20,8 @@ function TypingBubble() {
 const buttonBase =
   "group inline-flex items-center justify-center gap-2 rounded-pill px-5 py-3 text-body-sm font-semibold transition-all duration-300 hover:-translate-y-0.5";
 
-export function Contact() {
+export function Contact({ lang }: { lang: Lang }) {
+  const { contact, links, profile, ui } = getContent(lang);
   return (
     <section id="contato" className="px-page-x py-section md:px-page-x-lg md:py-section-lg">
       <Reveal className="mx-auto flex max-w-site flex-col items-center gap-10 md:flex-row md:justify-center md:gap-16">
@@ -38,7 +39,7 @@ export function Contact() {
               className={`${buttonBase} bg-whatsapp text-on-whatsapp shadow-card hover:shadow-none sm:col-span-2`}
             >
               <WhatsAppGlyph className="size-5 transition-transform group-hover:-rotate-12" />
-              Chamar no WhatsApp
+              {ui.contact.whatsapp}
             </a>
             <a
               href={links.linkedin.href}

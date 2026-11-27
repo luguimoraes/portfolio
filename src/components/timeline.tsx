@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { CareerItem } from "@/content/site";
 import { Icon } from "./icons";
 import { Reveal } from "./motion";
@@ -5,10 +6,26 @@ import { Meta } from "./ui";
 
 function Card({ item }: { item: CareerItem }) {
   return (
-    <div className="rounded-card border border-line bg-surface p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent-vivid md:p-6">
-      <span className="inline-block rounded-pill bg-accent-soft px-2.5 py-0.5 font-mono text-meta text-accent">
-        {item.period}
-      </span>
+    <div className="group rounded-card border border-line bg-surface p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-accent-vivid md:p-6">
+      <div className="flex items-start justify-between gap-4">
+        <span className="inline-block rounded-pill bg-accent-soft px-2.5 py-0.5 font-mono text-meta whitespace-nowrap text-accent">
+          {item.period}
+        </span>
+        {item.logos && (
+          <span className="-mt-1 -mr-1 flex shrink-0 gap-2">
+            {item.logos.map((logo, i) => (
+              <span
+                key={logo.src}
+                className={`flex size-14 items-center justify-center overflow-hidden rounded-control border border-line bg-logo-tile shadow-card transition-transform duration-300 group-hover:-translate-y-0.5 ${
+                  i % 2 === 0 ? "group-hover:-rotate-6" : "group-hover:rotate-6"
+                }`}
+              >
+                <Image src={logo.src} alt={logo.alt} width={48} height={48} className="size-12 object-contain" />
+              </span>
+            ))}
+          </span>
+        )}
+      </div>
       <h3 className="mt-3 text-title-3 font-bold">{item.title}</h3>
       <p className="mt-1 text-body-sm">
         <span className="font-semibold">{item.role}</span>

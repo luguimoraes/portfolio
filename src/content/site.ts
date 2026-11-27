@@ -91,6 +91,8 @@ export type CareerItem = {
   company: string;
   note: string;
   icon: IconName;
+  // Ícones oficiais das empresas (favicons), em public/logos.
+  logos?: { src: string; alt: string }[];
 };
 
 export const careerIntro =
@@ -104,6 +106,7 @@ export const career: CareerItem[] = [
     company: "ZENVIA",
     note: "Contas de grande porte em tecnologia, logística, saúde e educação. Expansão para Zenvia Customer Cloud e Movidesk.",
     icon: "chart",
+    logos: [{ src: "/logos/zenvia.png", alt: "ZENVIA" }],
   },
   {
     period: "2023 – 2025",
@@ -112,6 +115,7 @@ export const career: CareerItem[] = [
     company: "4blue",
     note: "Acompanhei empresários em finanças, marketing, pessoas e estratégia no programa Máquina de Lucros.",
     icon: "bulb",
+    logos: [{ src: "/logos/4blue.png", alt: "4blue" }],
   },
   {
     period: "2023 – 2025",
@@ -120,6 +124,7 @@ export const career: CareerItem[] = [
     company: "Mercado Livre",
     note: "Retenção, cross-sell e solução de problemas operacionais e financeiros da carteira.",
     icon: "box",
+    logos: [{ src: "/logos/mercado-livre.png", alt: "Mercado Livre" }],
   },
   {
     period: "2022 – 2023",
@@ -128,6 +133,7 @@ export const career: CareerItem[] = [
     company: "Wellhub",
     note: "Grandes contas de farma e tecnologia, lado a lado com o RH na gestão do benefício.",
     icon: "heart",
+    logos: [{ src: "/logos/wellhub.png", alt: "Wellhub" }],
   },
   {
     period: "2022 – 2023",
@@ -144,6 +150,7 @@ export const career: CareerItem[] = [
     company: "QuintoAndar",
     note: "Insights do atendimento levados para produto, processo e marketing.",
     icon: "house",
+    logos: [{ src: "/logos/quintoandar.png", alt: "QuintoAndar" }],
   },
   {
     period: "2020 – 2021",
@@ -152,6 +159,7 @@ export const career: CareerItem[] = [
     company: "mLabs",
     note: "Empreendedores, redes sociais e marketing digital: onde aprendi a acompanhar métricas de sucesso.",
     icon: "phone",
+    logos: [{ src: "/logos/mlabs.png", alt: "mLabs" }],
   },
   {
     period: "2013 – 2020",
@@ -160,6 +168,7 @@ export const career: CareerItem[] = [
     company: "Petrobras, MRV e construtoras",
     note: "Contratos, cronogramas e custos: aprendi a medir antes de mudar.",
     icon: "helmet",
+    logos: [{ src: "/logos/petrobras.png", alt: "Petrobras" }, { src: "/logos/mrv.png", alt: "MRV" }],
   },
 ];
 

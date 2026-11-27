@@ -15,6 +15,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  // Endereço oficial: usado para montar o link absoluto da imagem de compartilhamento.
+  metadataBase: new URL("https://luguimoraes-portfolio.vercel.app"),
   title: `${profile.name} · ${profile.role}`,
   description: profile.intro,
   openGraph: {

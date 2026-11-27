@@ -6,6 +6,8 @@ import { join, relative } from "node:path";
 
 const ROOTS = ["src/app", "src/components"];
 const EXT = /\.(tsx?|jsx?)$/;
+// Imagens geradas com ImageResponse só aceitam estilo inline (cores espelham os tokens).
+const SKIP = /opengraph-image|twitter-image/;
 const RULES = [
   { name: "cor hex solta", re: /#[0-9a-fA-F]{3,8}\b/ },
   { name: "cor rgb/hsl solta", re: /\b(rgba?|hsla?|oklch)\(/ },
@@ -21,7 +23,7 @@ function walk(dir) {
 }
 
 const problems = [];
-for (const file of ROOTS.flatMap(walk)) {
+for (const file of ROOTS.flatMap(walk).filter((f) => !SKIP.test(f))) {
   readFileSync(file, "utf8")
     .split("\n")
     .forEach((line, i) => {

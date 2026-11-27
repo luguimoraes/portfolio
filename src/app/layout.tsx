@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Caveat, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { profile } from "@/content/site";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
+});
+
+// Só para a legenda manuscrita da polaroid.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["600"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -34,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${jakarta.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${plexMono.variable} ${caveat.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -28,12 +28,18 @@ export const links = {
   github: { label: "GitHub", href: "https://github.com/luguimoraes" },
   linktree: { label: "Linktree", href: "https://linktr.ee/luguimoraes" },
   instagram: { label: "Instagram", href: "https://www.instagram.com/luguimoraes/" },
+  whatsapp: {
+    label: "WhatsApp",
+    href: "https://wa.me/5512992601452?text=Oi%20Luis%2C%20vi%20seu%20portf%C3%B3lio%20e%20queria%20conversar!",
+  },
 } satisfies Record<string, Link>;
+
+export const phoneDisplay = "+55 12 99260-1452";
 
 // Seções da home. Os links usam "/#id" para funcionar também nas páginas de case.
 export const nav = [
+  { label: "Sobre", id: "sobre" },
   { label: "Cases", id: "projetos" },
-  { label: "Como trabalho", id: "como-trabalho" },
   { label: "Ferramentas", id: "ferramentas" },
   { label: "Trajetória", id: "trajetoria" },
   { label: "Contato", id: "contato" },
@@ -219,3 +225,19 @@ export const metrics: { name: string; text: string }[] = [
   { name: "Expansão", text: "Upsell e cross-sell dentro da base." },
   { name: "LTV", text: "Valor do cliente ao longo de toda a relação." },
 ];
+
+// Seção "Sobre mim".
+export const about = {
+  title: "Sobre mim",
+  paragraphs: [
+    "Sou formado em Engenharia Civil e construí minha carreira em Customer Success passando por SaaS, logística, benefício corporativo, marketing e mercado imobiliário. Em cada lugar, aprendi a mesma coisa: cliente fica quando enxerga valor.",
+    "Hoje cuido de contas enterprise da SenseData na ZENVIA e construo agentes de IA para o dia a dia de CS. Estudo Data Science e IA na USP/Esalq para levar mais método para a carteira.",
+  ],
+  caption: "Cliente que vê valor não precisa ser convencido a ficar.",
+};
+
+// Seção "Vamos trabalhar juntos?".
+export const contact = {
+  title: "Vamos trabalhar juntos?",
+  text: "Para oportunidades em Customer Success, projetos com dados e IA aplicada a CS ou uma boa conversa sobre carteira. O caminho mais rápido é o WhatsApp.",
+};

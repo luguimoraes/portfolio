@@ -1,4 +1,6 @@
+import { About } from "@/components/about";
 import { CaseCard } from "@/components/case-card";
+import { Contact } from "@/components/contact";
 import { ScrollProgress } from "@/components/decor";
 import { Hero } from "@/components/hero";
 import { Icon } from "@/components/icons";
@@ -8,7 +10,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Timeline } from "@/components/timeline";
 import { Toolkit } from "@/components/toolkit";
-import { Meta, Pill, Section, Tag } from "@/components/ui";
+import { Meta, Section, Tag } from "@/components/ui";
 import { cases } from "@/content/cases";
 import {
   aiBlock,
@@ -17,21 +19,18 @@ import {
   casesIntro,
   education,
   languages,
-  links,
   principles,
-  profile,
   tools,
 } from "@/content/site";
 
 export default function Home() {
-  const otherLinks = [links.github, links.linktree, links.instagram];
-
   return (
     <>
       <ScrollProgress />
       <SiteHeader />
       <main className="flex-1">
         <Hero />
+        <About />
 
         {/* ---------- Projetos ---------- */}
         <Section id="projetos" eyebrow="Cases" title="Trabalhos selecionados" aside={casesIntro}>
@@ -138,33 +137,7 @@ export default function Home() {
         </Section>
 
         {/* ---------- Contato ---------- */}
-        <section id="contato" className="px-page-x py-section md:px-page-x-lg md:py-section-lg">
-          <Reveal className="relative isolate mx-auto max-w-site overflow-hidden rounded-card bg-primary p-8 text-primary-ink md:p-16">
-            <div aria-hidden className="blob blob-a -right-20 -bottom-24 -z-10 size-96 bg-accent-vivid" />
-            <Meta className="text-primary-ink opacity-80">Contato</Meta>
-            <h2 className="mt-3 max-w-reading text-title-1 font-extrabold md:text-display-compact">Vamos conversar?</h2>
-            <p className="mt-4 max-w-reading text-body-lg opacity-90">
-              Sobre Customer Success, dados, IA aplicada a CS ou uma troca de ideias. O caminho mais rápido é o
-              LinkedIn.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              {profile.email && (
-                <Pill href={`mailto:${profile.email}`} variant="inverse">
-                  E-mail
-                </Pill>
-              )}
-              <Pill href={links.linkedin.href} variant="inverse" external>
-                {links.linkedin.label}
-              </Pill>
-              {otherLinks.map((link) => (
-                <Pill key={link.href} href={link.href} variant="inverse-outline" external>
-                  {link.label}
-                </Pill>
-              ))}
-            </div>
-            <p className="mt-10 font-mono text-meta uppercase opacity-80">{profile.location}</p>
-          </Reveal>
-        </section>
+        <Contact />
       </main>
       <SiteFooter />
     </>

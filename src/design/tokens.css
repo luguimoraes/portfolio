@@ -29,6 +29,10 @@
   --c-accent-soft: #fff0e4;
   --c-on-accent: #1a0e05; /* texto sobre o laranja vivo, nos dois temas */
   --c-logo-tile: #ffffff; /* fundo dos logos das empresas, igual nos dois temas */
+  --c-whatsapp: #25d366; /* verde do WhatsApp, igual nos dois temas */
+  --c-on-whatsapp: #062b16; /* texto sobre o verde: contraste AA */
+  --c-paper: #fffdf8; /* papel da polaroid, igual nos dois temas */
+  --c-paper-ink: #1d2433;
   --c-ring: #1f4fd6;
   --c-shadow: rgb(15 26 51 / 0.12);
   --blob-opacity: 0.45;
@@ -92,12 +96,17 @@
   --color-accent-soft: var(--c-accent-soft);
   --color-on-accent: var(--c-on-accent);
   --color-logo-tile: var(--c-logo-tile);
+  --color-whatsapp: var(--c-whatsapp);
+  --color-on-whatsapp: var(--c-on-whatsapp);
+  --color-paper: var(--c-paper);
+  --color-paper-ink: var(--c-paper-ink);
   --color-ring: var(--c-ring);
   --color-transparent: transparent;
 
   /* Tipografia */
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), cursive;
 
   --text-display: 4rem;
   --text-display--line-height: 1.02;
@@ -153,6 +162,7 @@
   --animate-spin-slow: spin 40s linear infinite;
   --animate-bob: bob 5s ease-in-out infinite;
   --animate-ping-soft: ping-soft 1.8s ease-out infinite;
+  --animate-typing: typing 1.2s ease-in-out infinite;
 
   @keyframes fade-up {
     from {
@@ -187,6 +197,18 @@
     }
     50% {
       transform: translateY(-10px) rotate(calc(var(--tilt, 0deg) * -1));
+    }
+  }
+  @keyframes typing {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.35;
+    }
+    30% {
+      transform: translateY(-6px);
+      opacity: 1;
     }
   }
   @keyframes ping-soft {

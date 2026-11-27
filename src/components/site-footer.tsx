@@ -2,7 +2,7 @@ import { links, nav, profile } from "@/content/site";
 import { Meta, Pill } from "./ui";
 
 export function SiteFooter() {
-  const elsewhere = [links.linkedin, links.github, links.linktree, links.instagram];
+  const elsewhere = [links.whatsapp, links.linkedin, links.github, links.linktree, links.instagram];
   return (
     <footer className="border-t border-line px-page-x pt-16 pb-8 md:px-page-x-lg">
       <div className="mx-auto grid max-w-site gap-10 md:grid-cols-12">

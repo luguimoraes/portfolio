@@ -4,6 +4,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+  /* O texto girando e as formas animadas passam da borda; clip mantém o sticky. */
+  overflow-x: clip;
 }
 
 body {
@@ -95,6 +97,24 @@ body {
 @keyframes grow-x {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+
+/* Pontinhos "digitando" do balão de contato. */
+@media (prefers-reduced-motion: no-preference) {
+  .typing-dot {
+    animation: var(--animate-typing);
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+}
+
+/* Polaroid: inclinada, endireita no hover. */
+.polaroid {
+  transform: rotate(4deg);
+  transition: transform 0.5s var(--ease-out-soft);
+}
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.02);
 }
 
 /* Pilha: cada cartão gruda um pouco abaixo do anterior. */
